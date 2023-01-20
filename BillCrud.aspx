@@ -26,7 +26,7 @@
 
 
     <div>
-        <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Hospital Bill</h1>
+        <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; Hospital Bill</h1>
     </div>
 
 
@@ -40,7 +40,7 @@
             </td>
             <td class="auto-style3">&nbsp;</td>
             <td class="auto-style4">
-                <asp:Label ID="Label5" runat="server" Text="BillDate"></asp:Label>
+                <asp:Label ID="Label5" runat="server" Text="BillDate"  ontextchanged="TextBoxStartDate_TextChanged"></asp:Label>
 &nbsp;<asp:TextBox ID="TextBox5" runat="server" Font-Size="Medium"  style="margin-left: 38px" Width="182px"></asp:TextBox>
             </td>
         </tr>
@@ -49,6 +49,8 @@
                 <asp:Label ID="Label2" runat="server" Font-Size="Medium" Text="PatientName"></asp:Label>
 &nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:TextBox ID="TextBox2" runat="server" Font-Size="Medium"  style="margin-left: 17px"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Name cannot be blank" ControlToValidate="TextBox2" ForeColor="Red"></asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator5" runat="server" ControlToValidate="TextBox2" ErrorMessage="it will not allow the integer" ForeColor="Red" ValidationExpression="^[\sa-zA-Z]*$"></asp:RegularExpressionValidator>
             </td>
             <td class="auto-style3">
                 <asp:Label ID="Label6" runat="server" Text="Gender"></asp:Label>
@@ -65,15 +67,23 @@
             <td class="auto-style2">
                 <asp:Label ID="Label3" runat="server" Font-Size="Medium" Text="Address"></asp:Label>
                 <asp:TextBox ID="TextBox3" runat="server" Font-Size="Medium"  style="margin-left: 73px"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RegularExpressionValidator7" runat="server" ErrorMessage="Address cannot be blank" ControlToValidate="TextBox3" ForeColor="Red"></asp:RequiredFieldValidator>
             </td>
             <td class="auto-style3">
                 <asp:Label ID="Label7" runat="server" Text="EmailId"></asp:Label>
+                
                 <asp:TextBox ID="TextBox4" runat="server" Font-Size="Medium"  style="margin-left: 29px"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Email cannot be blank" ControlToValidate="TextBox4" ForeColor="Red"></asp:RequiredFieldValidator>  
+  
+           <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" ControlToValidate="TextBox4" ErrorMessage="Enter proper email format" ForeColor="Red" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator> 
             </td>
             <td class="auto-style4">
                 <asp:Label ID="Label9" runat="server" Text="MobileNumber"></asp:Label>
-&nbsp;
-                <asp:TextBox ID="TextBox7" runat="server" Font-Size="Medium"  style="margin-left: 29px"></asp:TextBox>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:TextBox ID="TextBox7" runat="server" Font-Size="Medium"  style="margin-left: 29px" Height="20px" Width="210px"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Mobile cannot be blank" ControlToValidate="TextBox7" ForeColor="Red"></asp:RequiredFieldValidator> 
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator6" runat="server" ControlToValidate="TextBox7" ErrorMessage="Mobile number must be 10 digit" ForeColor="Red" ValidationExpression="\d{10}"></asp:RegularExpressionValidator>
+                    
             </td>
         </tr>
         <tr>
@@ -111,18 +121,18 @@
     </table>
     <div>
 
-
+        <div id="DivToPrint" runat="server">
         <asp:GridView ID="GridView1" runat="server" style="margin-left: 240px" Width="976px" BackColor="#CCFFFF" Height="159px">
         </asp:GridView>
-
+        </div>
 
         <br />
                 <asp:Button ID="Button2" runat="server" BackColor="#CCCCCC" BorderStyle="Solid" style="margin-left: 40px" Text="Add" OnClick="Button2_Click" Width="162px" Height="41px" />
                 <asp:Button ID="Button3" runat="server" BackColor="#CCCCCC" BorderStyle="Solid" style="margin-left: 40px" Text="Update" OnClick="Button3_Click" Width="162px" Height="41px" />
                 <asp:Button ID="Button4" runat="server" BackColor="#CCCCCC" BorderStyle="Solid" style="margin-left: 40px" Text="Save" OnClick="Button4_Click" Width="162px" Height="41px" />
                 <asp:Button ID="Button5" runat="server" BackColor="#CCCCCC" BorderStyle="Solid" style="margin-left: 40px" Text="Delete" OnClick="Button5_Click" Width="162px" Height="41px" />
-                <asp:Button ID="Button6" runat="server" BackColor="#CCCCCC" BorderStyle="Solid" style="margin-left: 40px" Text="Export" OnClick="Button6_Click" Width="162px" Height="41px" />
-                <asp:Button ID="Button7" runat="server" BackColor="#CCCCCC" BorderStyle="Solid" style="margin-left: 40px" Text="Print" OnClick="Button7_Click" Width="162px" Height="41px" />
+                <asp:Button ID="Button6" runat="server" BackColor="#CCCCCC" BorderStyle="Solid" style="margin-left: 40px" Text="Export" OnClick="Button6_Click" Width="162px" Height="41px" OnClientClick="return confirm('Are you sure you want to Export the data?');" />
+                <asp:Button ID="Button7" runat="server" BackColor="#CCCCCC" BorderStyle="Solid" style="margin-left: 40px" Text="Print" OnClick="Button7_Click" Width="162px" Height="41px" OnClientClick="return confirm('Are you sure you want to Print the data?');" />
 
 
     </div>
